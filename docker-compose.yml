@@ -1,0 +1,9 @@
+version: '3.9'
+services:
+  node:
+    build: .
+    volumes:
+      - './:/home/node/app'
+    ports:
+    - '8880:8880'
+    command: "npm start"
