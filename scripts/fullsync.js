@@ -26,9 +26,12 @@ class Fullsync extends Basesync {
 
 			await this.query('SET NAMES UTF8MB4');
 			const galleries = await this.query('SELECT gid FROM gallery');
-			// const galleries = Dbgalleries.
-			// connection.destroy();
 			console.log(`loaded ${galleries.length} gallery ids from db`);
+
+			console.log('Closing db connection as we don\'t need it anymore in this thread.');
+			console.log('Child processes will be forked for storing to db');
+			this.connection.end();
+			console.log('db connection closed on main thread');
 
 			const list = [];
 			let page = startPage;
