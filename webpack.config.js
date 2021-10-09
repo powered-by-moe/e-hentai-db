@@ -96,7 +96,7 @@ module.exports = ({ prod = false } = {}) => ({
 			},
 			proxy: {
 				'/api': {
-					target: `http://127.0.0.1:${require('./config').port}`,
+					target: `http://127.0.0.1:${require('./config/config').port}`,
 					secure: false,
 					changeOrigin: true
 				}
