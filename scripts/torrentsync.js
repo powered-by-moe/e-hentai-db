@@ -285,7 +285,7 @@ class TorrentSync {
 			}, {});
 
 			while (!finish) {
-				await this.sleep(1);
+				await this.sleep(config.uriCallInterval);
 				console.log(`requesting page ${page}...`);
 				const curList = await this.getPages(page, this.status);
 				console.log(`got gtid ${curList[0][2]} to ${curList.slice(-1)[0][2]}`);
@@ -324,7 +324,7 @@ class TorrentSync {
 
 				const result = {};
 				while (notExistGallery.length) {
-					await this.sleep(1);
+					await this.sleep(config.uriCallInterval);
 					const curList = notExistGallery.splice(0, 25);
 					console.log(`requesting metadata of ${curList[0]} to ${curList.slice(-1)[0]} (${curList.length})...`);
 					const metadatas = await this.getMetadatas(
@@ -356,7 +356,7 @@ class TorrentSync {
 
 			const torrentResult = [];
 			while (gids.length) {
-				await this.sleep(1);
+				await this.sleep(config.uriCallInterval);
 				const curid = gids.shift();
 				const [gid, token] = list.find(e => +e[0] === +curid);
 				const res = await this.getTorrents(gid, token);
