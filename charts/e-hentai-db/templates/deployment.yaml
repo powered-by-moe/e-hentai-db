@@ -47,13 +47,16 @@ spec:
               port: http
           volumeMounts:
           - name: config-volume
-            mountPath: /home/node/app/config.js
+            mountPath: /home/node/app/config
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
         - name: config-volume
           configMap:
             name: {{ include "e-hentai-db.fullname" . }}
+            items:
+            - key: config.js
+              path: config.js
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

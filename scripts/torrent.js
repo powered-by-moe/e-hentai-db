@@ -2,7 +2,7 @@ const mysql = require('mysql');
 const fs = require('fs');
 const http = require('http');
 const https = require('https');
-const config = require('../config');
+const config = require('../config/config');
 
 class TorrentImport {
 	constructor() {

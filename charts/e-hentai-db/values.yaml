@@ -5,13 +5,13 @@
 replicaCount: 1
 
 image:
-  repository: nginx
+  repository: pbxg33k/e-hentai-db
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  tag: "local-dev"
 
 imagePullSecrets:
-  - regcred
+  - name: regcred
 nameOverride: ""
 fullnameOverride: ""
 
@@ -90,11 +90,11 @@ cronjobs:
     hours: 24
 
 config:
-  dbHost: 'dbhost'
-  dbPort: 3306
+  dbHost: '95.217.186.241'
+  dbPort: 30000
   dbName: 'e-hentai-db'
-  dbUser: 'e-hentai-db'
-  dbPass: 'e-hentai-db'
+  dbUser: 'root'
+  dbPass: 'ZuH6gbaXNQ'
   cors: false
   corsOrigin: '*'
   webui: true

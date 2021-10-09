@@ -20,8 +20,11 @@ spec:
           - npm run resync {{ .Values.cronjobs.resync.hours }}
         volumeMounts:
           - name: config-volume
-            mountPath: /home/node/app/config.js
+            mountPath: /home/node/app/config
       volumes:
         - name: config-volume
           configMap:
             name: {{ include "e-hentai-db.fullname" . }}
+            items:
+              - key: config.js
+                path: config.js

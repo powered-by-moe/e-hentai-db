@@ -2,7 +2,7 @@ const mysql = require('mysql');
 const fs = require('fs');
 const https = require('https');
 const childProcess = require('child_process');
-const config = require('../config');
+const config = require('../config/config');
 
 class TorrentSync {
 	constructor() {
