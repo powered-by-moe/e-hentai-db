@@ -4,6 +4,7 @@ services:
     build: .
     volumes:
       - './:/home/node/app'
+      - './config.js:/home/node/app/config.js'
     ports:
     - '8880:8880'
     command: "npm start"
