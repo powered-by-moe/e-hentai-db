@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "e-hentai-db.fullname" . }}
+  labels:
+    {{- include "e-hentai-db.labels" . | nindent 4 }}
+data:
+  config.js: |
+    module.exports = {
+      dbHost: '{{ .Values.config.dbHost }}',
+      dbPort: '{{ .Values.config.dbPort }}',
+      dbName: '{{ .Values.config.dbName }}',
+      dbUser: '{{ .Values.config.dbUser }}',
+      dbPass: '{{ .Values.config.dbPass }}',
+      port: 8880,
+      cors: '{{ .Values.config.cors }}',
+      corsOrigin: '{{ .Values.config.corsOrigin }}',
+      webui: '{{ .Values.config.webui }}',
+      webuiPath: '{{ .Values.config.webuiPath }}',
+      uriCallInterval: '{{ .Values.config.uriCallInterval }}',
+      startPage: '{{ .Values.config.startPage }}'
+    }

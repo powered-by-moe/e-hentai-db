@@ -1,0 +1,27 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "e-hentai-db.fullname" . }}-sync
+  labels:
+    {{- include "e-hentai-db.labels" . | nindent 4 }}
+spec:
+  schedule: "{{ .Values.cronjobs.sync.schedule }}"
+  jobTemplate:
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      container:
+      - name: gallery-sync
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+        imagePullPolicy: Always
+        command:
+          - npm run sync
+        volumeMounts:
+          - name: config-volume
+            mountPath: /home/node/app/config.js
+      volumes:
+        - name: config-volume
+          configMap:
+            name: {{ include "e-hentai-db.fullname" . }}

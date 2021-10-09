@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "e-hentai-db.fullname" . }}
+  labels:
+    {{- include "e-hentai-db.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: 8880
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "e-hentai-db.selectorLabels" . | nindent 4 }}
