@@ -85,6 +85,10 @@ class Import {
 		});
 	}
 
+	async getGalleryTitle(gid) {
+		return (await this.query('SELECT title FROM gallery WHERE gid = ?', gid))[0];
+	}
+
 	async run() {
 		const { connection } = this;
 
@@ -152,10 +156,15 @@ class Import {
 				}
 				else if (this.force || posted > galleries[gid] || galleries.bytorrent) {
 					inserted++;
+					// Load title for comparison
+					const curTitle = (await this.getGalleryTitle([gid]));
 					const curTags = (await this.query('SELECT tid FROM gid_tid WHERE gid = ?', [gid])).map(e => e.tid);
 					const tids = tags.map(e => tagMap[e]);
 					const addTids = tids.filter(e => curTags.indexOf(e) < 0);
 					const delTids = curTags.filter(e => tids.indexOf(e) < 0);
+					if(curTitle !== title) {
+						queries.push(this.query('INSERT IGNORE INTO title (gid, title) SELECT gid, title FROM gallery WHERE gid = ?', [gid]));
+					}
 					queries.push(this.query('UPDATE gallery SET ? WHERE gid = ?', [{
 						token, archiver_key, title, title_jpn, category, thumb, uploader,
 						posted, filecount, filesize, expunged, rating, torrentcount, bytorrent: 0
