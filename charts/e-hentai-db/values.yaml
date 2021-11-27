@@ -88,6 +88,9 @@ cronjobs:
   resync:
     schedule: "0 * * * *"
     hours: 24
+  resync_hour:
+    schedule: "*/10 * * * *"
+    hours: 2
 
 config:
   dbHost: '95.217.186.241'

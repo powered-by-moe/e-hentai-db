@@ -40,14 +40,17 @@ spec:
           livenessProbe:
             httpGet:
               path: /
-              port: http
+              port: 8880
           readinessProbe:
             httpGet:
               path: /
-              port: http
+              port: 8880
           volumeMounts:
           - name: config-volume
             mountPath: /home/node/app/config
+          command:
+          - npm
+          - start
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:

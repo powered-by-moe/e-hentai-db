@@ -1,11 +1,11 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: {{ include "e-hentai-db.fullname" . }}-resync
+  name: {{ include "e-hentai-db.fullname" . }}-resync-hour
   labels:
     {{- include "e-hentai-db.labels" . | nindent 4 }}
 spec:
-  schedule: "{{ .Values.cronjobs.resync.schedule }}"
+  schedule: "{{ .Values.cronjobs.resync_hour.schedule }}"
   jobTemplate:
     spec:
       template:
@@ -16,14 +16,14 @@ spec:
           {{- end }}
           restartPolicy: Never
           containers:
-          - name: gallery-resync
+          - name: gallery-resync-hour
             image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
             imagePullPolicy: Always
             command:
             - npm
             - run
             - resync
-            - "{{ .Values.cronjobs.resync.hours }}"
+            - "{{ .Values.cronjobs.resync_hour.hours }}"
             volumeMounts:
               - name: config-volume
                 mountPath: /home/node/app/config

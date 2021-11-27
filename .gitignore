@@ -7,3 +7,4 @@ dist/
 .cookies*
 .proxies
 gdata-*.json
+sql/

@@ -9,6 +9,9 @@ install-dev:
 start:
 	npm start
 
+docker-build:
+	docker compose build
+
 docker-start:
 	docker compose up -d
 

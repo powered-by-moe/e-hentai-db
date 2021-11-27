@@ -4,23 +4,32 @@ metadata:
   name: {{ include "e-hentai-db.fullname" . }}-sync
   labels:
     {{- include "e-hentai-db.labels" . | nindent 4 }}
-spec:
+spec: #cronJobSpec
   schedule: "{{ .Values.cronjobs.sync.schedule }}"
   jobTemplate:
     spec:
-      container:
-      - name: gallery-sync
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-        imagePullPolicy: Always
-        command:
-          - npm run sync
-        volumeMounts:
-          - name: config-volume
-            mountPath: /home/node/app/config
-      volumes:
-        - name: config-volume
-          configMap:
-            name: {{ include "e-hentai-db.fullname" . }}
-            items:
-              - key: config.js
-                path: config.js
+      template:
+        spec:
+          {{- with .Values.imagePullSecrets }}
+          imagePullSecrets:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          restartPolicy: Never
+          containers:
+          - name: gallery-sync
+            image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+            imagePullPolicy: Always
+            command:
+              - npm
+              - run
+              - sync
+            volumeMounts:
+              - name: config-volume
+                mountPath: /home/node/app/config
+          volumes:
+            - name: config-volume
+              configMap:
+                name: {{ include "e-hentai-db.fullname" . }}
+                items:
+                  - key: config.js
+                    path: config.js
