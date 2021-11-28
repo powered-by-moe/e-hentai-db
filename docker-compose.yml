@@ -3,7 +3,7 @@ services:
   node:
     build: .
     volumes:
-      - './:/home/node/app'
+      - './:/home/node'
     ports:
     - '8880:8880'
     command: "npm start"

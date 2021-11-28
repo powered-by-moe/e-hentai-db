@@ -1,9 +1,9 @@
 FROM node:lts-alpine
 
-COPY . /home/node/app
-WORKDIR /home/node/app
+COPY . /home/node
+WORKDIR /home/node
 
-#RUN npm i --production
-RUN npm i && npm run build
+RUN npm i --production
+#RUN npm i && npm run build
 
 CMD ["npm", "start"]
