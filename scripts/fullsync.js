@@ -83,7 +83,7 @@ class Fullsync extends Basesync {
 			fs.writeFileSync(path, JSON.stringify(result), 'utf8');
 			console.log(`result is writted to ${path}, calling import script...`);
 
-			const importProcess = childProcess.spawn('node', ['./scripts/import.js', path]);
+			const importProcess = childProcess.spawn('node', [__dirname + '/import.js', path]);
 			importProcess.stdout.on('data', (data) => {
 				process.stdout.write(data.toString());
 			});
@@ -111,7 +111,7 @@ class Fullsync extends Basesync {
 		fs.writeFileSync(path, JSON.stringify(result), 'utf8');
 		console.log(`result is writted to ${path}, calling import script...`);
 
-		const importProcess = childProcess.spawn('node', ['./scripts/import.js', path]);
+		const importProcess = childProcess.spawn('node', [__dirname + '/import.js', path]);
 		importProcess.stdout.on('data', (data) => {
 			process.stdout.write(data.toString());
 		});
