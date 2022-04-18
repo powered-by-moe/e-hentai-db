@@ -33,5 +33,10 @@ spec: #cronJobSpec
                 items:
                   - key: config.js
                     path: config.js
+                  {{ if .Values.cookies.cookie }}
+                  - key: .cookies
+                    path: .cookies
+                  {{ end }}
+                  {{ if .Values.cookies.netscape }}
                   - key: .cookies.netscape
                     path: .cookies.netscape

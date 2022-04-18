@@ -104,3 +104,10 @@ config:
   webuiPath: 'dist'
   uriCallInterval: 10
   startPage: 0
+
+cookies:
+  enabled: false
+  cookie: ~
+  netscape: #|
+    # Here we'll put our netscape formatted cookie which we exported from our browser
+    # note te PIPE character, uncomment that so we can pass multiline values

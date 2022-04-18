@@ -20,3 +20,13 @@ data:
       uriCallInterval: '{{ .Values.config.uriCallInterval }}',
       startPage: '{{ .Values.config.startPage }}'
     }
+{{ if .Values.cookies.enabled }}
+{{- if .Values.cookies.cookie -}}
+  .cookies: |
+    {{ .Values.cookies | nindent 4}}
+{{ end }}
+{{- if .Values.cookies.netscape -}}
+  .cookies.netscape: |
+    {{ .Values.cookies.netscape | nindent 4 }}
+{{ end }}
+{{- end -}}
