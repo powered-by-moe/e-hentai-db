@@ -11,3 +11,5 @@ gdata-*.json
 sql/
 charts/values.yaml
 app/config/config.js
+
+charts/e-hentai-db/values.yaml
