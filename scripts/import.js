@@ -1,6 +1,6 @@
 const mysql = require('mysql');
 const fs = require('fs');
-const config = require('../config/config');
+const config = require('../app/config/config');
 
 class Import {
 	constructor() {

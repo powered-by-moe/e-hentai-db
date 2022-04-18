@@ -3,7 +3,7 @@ const fs = require('fs');
 const { Buffer } = require('buffer');
 const https = require('https');
 const childProcess = require('child_process');
-const config = require('../config/config');
+const config = require('../app/config/config');
 
 class Resync {
 	constructor() {

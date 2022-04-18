@@ -1,6 +1,6 @@
 const fs = require('fs');
 const childProcess = require('child_process');
-const config = require('../config/config');
+const config = require('../app/config/config');
 const { uriCallInterval, startPage } = config;
 const Basesync = require('./basesync');
 

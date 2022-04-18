@@ -1,5 +1,5 @@
 const mysql = require('mysql');
-const config = require('../config/config');
+const config = require('../app/config/config');
 
 class MarkReplaced {
 	constructor() {
