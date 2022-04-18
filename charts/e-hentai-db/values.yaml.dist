@@ -93,11 +93,11 @@ cronjobs:
     hours: 2
 
 config:
-  dbHost: '95.217.186.241'
-  dbPort: 30000
+  dbHost: 'dbHost'
+  dbPort: 3306
   dbName: 'e-hentai-db'
-  dbUser: 'root'
-  dbPass: 'ZuH6gbaXNQ'
+  dbUser: 'dbUser'
+  dbPass: 'dbPass'
   cors: false
   corsOrigin: '*'
   webui: true
