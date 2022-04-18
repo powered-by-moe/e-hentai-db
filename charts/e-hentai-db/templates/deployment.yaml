@@ -60,6 +60,8 @@ spec:
             items:
             - key: config.js
               path: config.js
+            - key: .cookies.netscape
+              path: .cookies.netscape
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

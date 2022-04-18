@@ -52,11 +52,23 @@ class Basesync {
 		try {
 			if (fs.existsSync('.cookies')) {
 				return fs.readFileSync('.cookies', 'utf8');
-			} else if(fs.existsSync('.cookies.netscape')) {
+			} else if (fs.existsSync('.cookies.netscape')) {
 				// Load cookies from files using the netscape cookie format
 				// @see https://www.erikoest.dk/cookies.htm
 				const cookiemap = new cookiefile.CookieMap('.cookies.netscape');
 				return cookiemap.toRequestHeader().replace ('Cookie: ','');
+			} else if (fs.existsSync('../app/config/.cookies')) {
+				return fs.readFileSync('../app/config/.cookies', 'utf8');
+			} else if (fs.existsSync('../app/config/.cookies.netscape')) {
+				// Load cookies from files using the netscape cookie format
+				// @see https://www.erikoest.dk/cookies.htm
+				const cookiemap = new cookiefile.CookieMap('../app/config/.cookies.netscape');
+				return cookiemap.toRequestHeader().replace ('Cookie: ','');
+			} else if (fs.existsSync('/home/node/app/config/.cookies')) {
+				return fs.readFileSync('/home/node/app/config/.cookies', 'utf8');
+			} else if (fs.existsSync('/home/node/app/config/.cookies.netscape')) {
+				const cookiemap = new cookiefile.CookieMap('/home/node/app/config/.cookies.netscape');
+				return cookiemap.toRequestHeader().replace('Cookie: ', '');
 			}
 		} catch(err) {
 			return '';
