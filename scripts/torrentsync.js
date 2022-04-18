@@ -73,7 +73,7 @@ class TorrentSync {
 
 	loadCookies() {
 		try {
-			return fs.readFileSync('.cookies', 'utf8');
+			return fs.readFileSync('../app/config/.cookies', 'utf8');
 		} catch (err) {
 			return '';
 		}
