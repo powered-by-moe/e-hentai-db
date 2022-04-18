@@ -9,3 +9,5 @@ dist/
 .proxies
 gdata-*.json
 sql/
+charts/values.yaml
+app/config/config.js
