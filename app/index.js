@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const router = require('./router');
 const useCors = require('./util/useCors');
-const config = require('../config/config');
+const config = require('./config/config');
 const { port = 8880, cors = false, corsOrigin, webui, webuiPath } = config;
 
 

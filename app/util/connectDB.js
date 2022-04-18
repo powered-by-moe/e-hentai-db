@@ -1,5 +1,5 @@
 const mysql = require('mysql');
-const config = require('../../config/config');
+const config = require('../config/config');
 
 class ConnectDB {
 	constructor() {
