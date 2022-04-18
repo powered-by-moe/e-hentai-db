@@ -2,7 +2,7 @@ const mysql = require('mysql');
 const fs = require('fs');
 const https = require('https');
 const childProcess = require('child_process');
-const config = require('../config');
+const config = require('../config/config');
 
 class TorrentSync {
 	constructor() {
@@ -285,7 +285,7 @@ class TorrentSync {
 			}, {});
 
 			while (!finish) {
-				await this.sleep(1);
+				await this.sleep(config.uriCallInterval);
 				console.log(`requesting page ${page}...`);
 				const curList = await this.getPages(page, this.status);
 				console.log(`got gtid ${curList[0][2]} to ${curList.slice(-1)[0][2]}`);
@@ -324,7 +324,7 @@ class TorrentSync {
 
 				const result = {};
 				while (notExistGallery.length) {
-					await this.sleep(1);
+					await this.sleep(config.uriCallInterval);
 					const curList = notExistGallery.splice(0, 25);
 					console.log(`requesting metadata of ${curList[0]} to ${curList.slice(-1)[0]} (${curList.length})...`);
 					const metadatas = await this.getMetadatas(
@@ -338,7 +338,7 @@ class TorrentSync {
 					fs.writeFileSync(path, JSON.stringify(result), 'utf8');
 					console.log(`result is writted to ${path}, calling import script...`);
 
-					const importProcess = childProcess.spawn('node', ['./scripts/import.js', path]);
+					const importProcess = childProcess.spawn('node', [__dirname + '/import.js', path]);
 					importProcess.stdout.on('data', (data) => {
 						process.stdout.write(data.toString());
 					});
@@ -356,7 +356,7 @@ class TorrentSync {
 
 			const torrentResult = [];
 			while (gids.length) {
-				await this.sleep(1);
+				await this.sleep(config.uriCallInterval);
 				const curid = gids.shift();
 				const [gid, token] = list.find(e => +e[0] === +curid);
 				const res = await this.getTorrents(gid, token);

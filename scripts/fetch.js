@@ -2,6 +2,7 @@ const fs = require('fs');
 const { Buffer } = require('buffer');
 const https = require('https');
 const childProcess = require('child_process');
+const config = require('../config/config');
 
 class Fetch {
 	constructor() {
@@ -80,7 +81,7 @@ class Fetch {
 
 		let result = {};
 		while (list.length) {
-			await this.sleep(1);
+			await this.sleep(config.uriCallInterval);
 			const curList = list.splice(0, 25).map(e => [e.gid, e.token]);
 			console.log(`requesting metadata of ${curList[0][0]} to ${curList.slice(-1)[0][0]} (${curList.length})...`);
 			const metadatas = await this.getMetadatas(curList);
@@ -91,7 +92,7 @@ class Fetch {
 		fs.writeFileSync(path, JSON.stringify(result), 'utf8');
 		console.log(`result is writted to ${path}, calling import script...`);
 
-		const importProcess = childProcess.spawn('node', ['./scripts/import.js', path, '-f']);
+		const importProcess = childProcess.spawn('node', [__dirname + '/import.js', path, '-f']);
 		importProcess.stdout.on('data', (data) => {
 			process.stdout.write(data.toString());
 		});

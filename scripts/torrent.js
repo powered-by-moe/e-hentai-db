@@ -2,7 +2,7 @@ const mysql = require('mysql');
 const fs = require('fs');
 const http = require('http');
 const https = require('https');
-const config = require('../config');
+const config = require('../config/config');
 
 class TorrentImport {
 	constructor() {
@@ -323,13 +323,13 @@ class TorrentImport {
 						if (finished % 100 === 0) {
 							console.log(`*** imported ${finished} galleries of ${length} ***`);
 						}
-						await this.sleep(1);
+						await this.sleep(config.uriCallInterval);
 						count--;
 						requestQueue();
 					}).catch(async (err) => {
 						console.error(err);
 						notInited.unshift(item);
-						await this.sleep(1);
+						await this.sleep(config.uriCallInterval);
 						count--;
 						requestQueue();
 					});
